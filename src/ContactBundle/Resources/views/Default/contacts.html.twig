@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Enregistrer un contact</title>
+        <link href="{{ asset('bundles/contact/assets/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/contact/assets/fonts/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/contact/assets/css/jasny-bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/contact/assets/css/custom.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('bundles/contact/css/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <style>
+            a,a:hover{
+                color: black;
+                text-decoration: none;
+            }
+
+            .form-row{
+                margin-bottom: 40px;
+            }
+
+            table tr:hover{
+                background-color: #efefef;
+                border-left: 3px solid #4682b4;
+            }
+
+            a:active{
+                background-color: #2aabd2;
+            }
+
+        </style>
+    </head>
+    <body>
+    <div class="container" style="margin-top: 20px;padding-left: 0px;margin-left: 20px;margin-right: 0px;padding-right: 0px">
+        <div class="row">
+            <div class="col-md-3">
+                <img class="gb_ma gb_4d" alt="" aria-hidden="true" src="https://www.gstatic.com/images/branding/product/1x/contacts_48dp.png" srcset="https://www.gstatic.com/images/branding/product/1x/contacts_48dp.png 1x, https://www.gstatic.com/images/branding/product/2x/contacts_48dp.png 2x " style="width:40px;height:40px;margin-bottom: 10px"><strong style="margin: 10px;font-size: 20px">Mes contacts</strong>
+            </div>
+            <div class="col-md-9">
+                <form>
+                    <div class="md-form">
+                        <input class="form-control" type="text" placeholder="Recherche">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+        <div class="container" style="margin-top: 20px;padding-left: 0px;margin-left: 20px;margin-right: 0px;padding-right: 0px">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="list-group">
+                        <a class="list-group-item " data-toggle="modal" data-target="#myModal" id="addContact" style="cursor: pointer">
+                            <span class="VfPpkd-Q0XOV" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 36 36"><path fill="#34A853" d="M16 16v14h4V20z"></path><path fill="#4285F4" d="M30 16H20l-4 4h14z"></path><path fill="#FBBC05" d="M6 16v4h10l4-4z"></path><path fill="#EA4335" d="M20 16V6h-4v14z"></path><path fill="none" d="M0 0h36v36H0z"></path></svg></span>
+                            <span class="VfPpkd-nBWOSb">Créer un contact</span>
+                        </a>
+                    </div>
+                    <div class="list-group" style="margin-top: 10px">
+                        <a href="{{ url('acceuil') }}" class="list-group-item" style="color: #005bc3">
+                            <span class="VfPpkd-nBWOSb">Tous les contacts</span>
+                        </a>
+                        <a href="{{ url('autoriser') }}" class="list-group-item" style="color: #005bc3">
+                            <span class="VfPpkd-nBWOSb">Contacts autorisés</span>
+                        </a>
+                        <a href="{{ url('bloquer') }}" class="list-group-item" style="color: #005bc3">
+                            <span class="VfPpkd-nBWOSb">Contacts bloqués</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <table class="table table-borderless" style="border: 1px solid #ccc;border-radius: 4px">
+                        <thead class="black white-text" style="border-bottom: 1.5px solid #ccc">
+                        <tr>
+                            <th scope="col" style="width: 10px"></th>
+                            <th scope="col" style="color: #005bc3">Titre</th>
+                            <th scope="col" style="color: #005bc3">E-mail</th>
+                            <th scope="col" style="color: #005bc3">Téléphone</th>
+                            <th scope="col" style="color: #005bc3">Actions</th>
+                        </tr>
+                        </thead>
+                        {% for contact in contacts %}
+                        <tbody style="border-bottom-right-radius: 20px">
+                            <tr>
+                                <td><a href="{{ url('display',{id:contact.id})}}" style="cursor: pointer"><img src="{{contact.imgUrl}}" style="width: 30px;height: 30px;border: 1px solid #ccc;border-radius: 50px" /></a></td>
+                                <td><a href="{{ url('display',{id:contact.id})}}" style="cursor: pointer">{{ contact.prenom }} {{ contact.nom }}</a></td>
+                                <td><a href="{{ url('display',{id:contact.id})}}" style="cursor: pointer">{{ contact.email }}</a></td>
+                                <td><a href=R"{{ url('display',{id:contact.id})}}" style="cursor: pointer">{{ contact.telephone }}</a></td>
+                                <td >
+                                    <a href="{{ url('display',{id:contact.id})}}" title="Info" style="padding: 0px 3px 0px 3px">
+                                        <i class="fas fa-address-card" style="color: #4d97e1;"></i>
+                                    </a>
+                                    <a href="{{ url('delete',{id:contact.id})}}" onclick="return confirm('Voulez vous vraiment supprimer ce contact')" title="Supprimer" style="padding: 0px 2px 0px 2px">
+                                        <i class="fas fa-user-times" style="color: red"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header" >
+                        <h4 class="modal-title">Créer un contact</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <!-- Material form register -->
+                        <div class="card">
+                            <div class="card-body px-lg-5 pt-0">
+                                <!-- Form -->
+                                {{ form_start( form ) }}
+                                <div class="form-row" style="margin-top: 30px">
+                                    <div class="col">
+                                        <!-- First name -->
+                                        <div class="md-form">
+                                            {{ form_widget(form.prenom, { 'attr': {'class': 'form-control' , 'placeholder': 'Prénom'} }) }}
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <!-- Last name -->
+                                        <div class="md-form">
+                                            {{ form_widget(form.nom, { 'attr': {'class': 'form-control', 'placeholder': 'Nom'} }) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="md-form">
+                                            {{ form_widget(form.email, { 'attr': {'class': 'form-control', 'placeholder': 'E-mail'} }) }}
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="md-form">
+                                            {{ form_widget(form.telephone, { 'attr': {'class': 'form-control', 'placeholder': 'Téléphone'} }) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <!-- photo -->
+                                        <div class="md-form">
+                                            {{ form_widget(form.imgUrl, { 'attr': {'class': 'form-control', 'placeholder': 'Url Photo'} }) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Subject -->
+                                <div class="form-row" style="margin-bottom: 10px">
+                                    {{ form_widget(form.status, { 'attr': {'class': 'browser-default custom-select mb-4', 'placeholder': 'Url Photo'} }) }}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        {{ form_widget(form.create, { 'attr': {'class': 'btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0'} }) }}
+                    </div>
+                </div>
+                {{ form_end( form ) }}
+            </div>
+        </div>
+    </body>
+    <script src="{{ asset('bundles/contact/assets/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('bundles/contact/assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/contact/assets/js/jasny-bootstrap.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</html>
